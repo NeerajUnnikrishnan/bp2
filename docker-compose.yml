@@ -1,0 +1,21 @@
+version: '2'
+
+services: 
+  mongodb:
+    image: mongo
+    ports:
+      - "27018:27017"
+    container_name: test-mongo2
+    network_mode: host
+  spring:
+    image: springboot
+    build: movieCruiser/
+    restart: always
+    network_mode: host
+    container_name: spring--app
+    depends_on:
+      - mongodb
+    ports:
+      - 8082:8080
+    expose:
+      - 8080
